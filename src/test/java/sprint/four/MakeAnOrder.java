@@ -6,21 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 @RunWith(Parameterized.class)
 public class MakeAnOrder {
     private final String name;
     private final String surname;
-    private final String adress;
+    private final String address;
     private final String metroStation;
     private final String phone;
     private final String comment;
@@ -35,7 +29,7 @@ public class MakeAnOrder {
     ) {
         this.name = name;
         this.surname = surname;
-        this.adress = address;
+        this.address = address;
         this.metroStation = metroStation;
         this.phone = phone;
         this.comment = comment;
@@ -56,9 +50,7 @@ public class MakeAnOrder {
 
     @Before
     public void mood() {
-        System.setProperty("webdriver.gecko.driver", "C:\\Praktikum\\geckodriver.exe");
-        //options.addArguments("--no-sandbox","--headless","--disable-dev-shm-usage");
-
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         webDriver = new FirefoxDriver(options);
     }
 
@@ -75,7 +67,7 @@ public class MakeAnOrder {
         formOrder.waitForForm();
 
         // Заполнить первую страницу формы заказа
-        formOrder.firstData(name, surname, adress, metroStation, phone);
+        formOrder.firstData(name, surname, address, metroStation, phone);
 
         // Кликнуть по кнопке далее
         formOrder.clickButtonNext();

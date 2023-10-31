@@ -5,14 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -86,16 +81,13 @@ public class CheckOpenTextInBlock {
         mainPage.setClickAgreeCookieButton();
 
         //Выполнить прокрутку до блока "Вопросы о важном"
-        WebElement element = driver.findElement((By.xpath("//div[contains(text(), 'Вопросы о важном')]")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        mainPage.scrollIntoImportantQuestionsBlock();
 
         //Выбрать заголовок вопроса
-        driver.findElement(By.xpath(".//div[text()='" + question + "']")).click();
+        mainPage.selectQuestionHeader(question);
 
         //Получить текст из элемента с ожиданием загрузки
-        WebElement accordionPanel = driver.findElement(By.id("accordion__panel-" + number));
-        new WebDriverWait(driver, Duration.ofSeconds(1)).until(ExpectedConditions.visibilityOf(accordionPanel));
-        String actualText = accordionPanel.getText();
+        String actualText = mainPage.getAccordionPanelText(number);
 
         //Сравнение ожидаемо и фактического результата
         assertEquals("Некорректный ответ!", answer, actualText);

@@ -45,7 +45,7 @@ public class FormOrder {
     private final By whenBringScooter = By.xpath(".//input[contains(@placeholder, '* Когда привезти самокат')]");
 
     //Дата доставки самоката - orderDate
-    private final By orderDate = By.xpath(".//div[@aria-label='Choose воскресенье, 29-е октября 2023 г.']");
+    private final By orderDate = By.xpath(".//div[@aria-label='Choose четверг, 30-е ноября 2023 г.']");
 
     //Поле срок аренды - rentalPeriod
     private final By rentalPeriod = By.xpath("//div[text()='* Срок аренды']");

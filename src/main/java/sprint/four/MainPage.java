@@ -1,4 +1,4 @@
-package Sprint_4;
+package sprint.four;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

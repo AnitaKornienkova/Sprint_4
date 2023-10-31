@@ -1,4 +1,4 @@
-package Sprint_4;
+package sprint.four;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -25,10 +25,17 @@ public class MakeAnOrder {
     private final String phone;
     private final String comment;
 
-    public MakeAnOrder(String name, String surname, String adress, String metroStation, String phone, String comment) {
+    public MakeAnOrder(
+            String name,
+            String surname,
+            String address,
+            String metroStation,
+            String phone,
+            String comment
+    ) {
         this.name = name;
         this.surname = surname;
-        this.adress = adress;
+        this.adress = address;
         this.metroStation = metroStation;
         this.phone = phone;
         this.comment = comment;
@@ -38,8 +45,8 @@ public class MakeAnOrder {
     public static Object[][] getOrder() {
         //Сгенерируй тестовые данные для формы 1 и формы 2
         return new Object[][]{
-                {"Анита", "Корниенкова", "г.Москва ул.Урицкого д.5 кв.36", "Бульвар Рокоссовского", "+7660736003","Пзвонить за 1 час"},
-                {"Ангелина", "Власова", "г.Москва ул.Борисова д.5 кв.36", "Бульвар Рокоссовского", "+7660736104","Позвонить в домофон"},
+                {"Анита", "Корниенкова", "г.Москва ул.Урицкого д.5 кв.36", "Бульвар Рокоссовского", "+7660736003", "Пзвонить за 1 час"},
+                {"Ангелина", "Власова", "г.Москва ул.Борисова д.5 кв.36", "Бульвар Рокоссовского", "+7660736104", "Позвонить в домофон"},
         };
     }
 
@@ -63,28 +70,29 @@ public class MakeAnOrder {
         mainPage.open();
         mainPage.setClickAgreeCookieButton();
         mainPage.clickButtonForOrderInUpPage();
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='* Имя']")));
 
-        //Заполнить первую страницу формы заказа
+        // Ожидаем прогрузки элементов формы
+        formOrder.waitForForm();
+
+        // Заполнить первую страницу формы заказа
         formOrder.firstData(name, surname, adress, metroStation, phone);
 
-        //Кликнуть по кнопке далее
+        // Кликнуть по кнопке далее
         formOrder.clickButtonNext();
 
-        //Заполнить вторую страницу формы заказа
+        // Заполнить вторую страницу формы заказа
         formOrder.secondData(comment);
 
-        //Ожидание кнопки "заказать"
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Заказать']")));
+        // Ожидание кнопки "заказать"
+        formOrder.waitForOrderButton();
 
-        //Заказать
+        // Заказать
         formOrder.orderButton();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Да')]")));
+        formOrder.waitForYes();
         formOrder.yes();
 
         // Проверка, что появилось окно об успешном заказе
-        String successfulOrder = webDriver.findElement(By.xpath(".//div[contains(@class, 'Order_ModalHeader')]")).getText();
+        String successfulOrder = formOrder.getOrderResultText();
         Assert.assertTrue("Ошибка", successfulOrder.startsWith("Заказ оформлен"));
     }
 

@@ -20,13 +20,13 @@ public class MainPage {//класс, в котором перечислены э
     private static final String URL = "https://qa-scooter.praktikum-services.ru/";
 
     //Куки - clickAgreeCookieButton
-    private By clickAgreeCookieButton = By.xpath("//button[@class='App_CookieButton__3cvqF']");
+    private final By clickAgreeCookieButton = By.xpath("//button[@class='App_CookieButton__3cvqF']");
 
     //Кнопка "Заказать" вверху страницы справа - clickButtonForOrderInUpPage
-    private By clickButtonForOrderInUpPage = By.xpath("//button[@class='Button_Button__ra12g' and contains(text(), 'Заказать')]");
+    private final By clickButtonForOrderInUpPage = By.xpath("//button[@class='Button_Button__ra12g' and contains(text(), 'Заказать')]");
 
     // Кнопка "Заказать" внизу страницы - clickButtonForOrderInDownPage
-    private By clickButtonForOrderInDownPage = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and contains(text(), 'Заказать')]");
+    private final By clickButtonForOrderInDownPage = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and contains(text(), 'Заказать')]");
 
     //Блок о важном
     private final By importantQuestionsBlock = By.xpath("//div[contains(text(), 'Вопросы о важном')]");
